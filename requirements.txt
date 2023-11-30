@@ -1,6 +1,5 @@
 nltk == 3.7
 streamlit == 1.28.0
-urllib.request == 3.9
 pandas == 2.0.2
 constellate-client == 0.0.6
 streamlit-ext == 0.1.9
