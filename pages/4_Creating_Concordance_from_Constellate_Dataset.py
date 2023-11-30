@@ -11,6 +11,7 @@ import nltk
 import pandas as pd
 import constellate
 import streamlit_ext as ste
+nltk.download('punkt')
 
 
 ### set page configuration

@@ -10,6 +10,7 @@ from io import StringIO
 import nltk
 import pandas as pd
 import streamlit_ext as ste
+nltk.download('punkt')
 
 def set_page_config():
     """set page configuration"""

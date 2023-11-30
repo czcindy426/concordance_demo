@@ -9,6 +9,7 @@ import streamlit as st
 from io import StringIO
 import urllib.request 
 import nltk
+nltk.download('punkt')
 
 def set_page_configuration():
     """set page configuration"""
