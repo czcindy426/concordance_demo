@@ -15,6 +15,7 @@ import plotly.graph_objs as go
 import re
 import string   
 
+max_lines = 2**63-1
 
 def set_page_configuration():
     """set page configuration"""
@@ -125,14 +126,14 @@ othello_input = str(st.text_input(""" """, """jealous"""))
 
 if othello_input:
     get_concordance(othello_input, othello_data)
-    freq_othello = len(get_concordance(othello_input, othello_data, lines=100, width=79, display=False))
+    freq_othello = len(get_concordance(othello_input, othello_data, lines=max_lines, width=79, display=False))
     othello_message = f"\"{othello_input}\" appears {freq_othello} times."
     display_freq(othello_message, othello_input, freq_othello)
     # section two: find concordances of 'jealous' in King Lear
     jealous_concordance_Lear()
     lear_data = read_file('king_lear.txt')
     get_concordance(othello_input, lear_data)
-    freq_lear = len(get_concordance(othello_input, lear_data, lines=100, width=79, display=False))
+    freq_lear = len(get_concordance(othello_input, lear_data, lines=max_lines, width=79, display=False))
     lear_message = f"\"{othello_input}\" appears {freq_lear} times."
     display_freq(lear_message, othello_input, freq_lear)
     # section three: Expand the comparison
