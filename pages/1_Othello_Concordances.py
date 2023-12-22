@@ -48,7 +48,7 @@ def jealous_concordance_Lear():
 
 def expand_comparison():
     st.header("Expand the comparison")
-    st.write("""Let's compare the frequency of the selected word in four works in Shakespeare's Canon:
+    st.write(f"""Let's compare the frequency of '{othello_input}' in four works in Shakespeare's Canon:
         Othello, King Lear, Taming of the Shrew, and Romeo and Juliet.""")
 
 def try_another_word():
@@ -118,8 +118,6 @@ add_title()
 # raise research question
 raise_research_question()
 
-# Research question: how many times 'jealous' appears in Othello and King Lear?
-
 # section one: find concordances of 'jealous' in Othello
 jealous_concordance_Othello()
 othello_data = read_file('othello.txt')
@@ -127,17 +125,15 @@ othello_input = str(st.text_input(""" """, """jealous"""))
 
 if othello_input:
     get_concordance(othello_input, othello_data)
-    # st.markdown('<p style="font-family:IBM Plex Sans; font-size:15px;">'
-    #     + othello_input + 'appears' + str(freq_othello) + 'times in Othello </p>'
     freq_othello = len(get_concordance(othello_input, othello_data, lines=100, width=79, display=False))
-    othello_message = f'{othello_input} appears {freq_othello} times.'
+    othello_message = f"\"{othello_input}\" appears {freq_othello} times."
     display_freq(othello_message, othello_input, freq_othello)
     # section two: find concordances of 'jealous' in King Lear
     jealous_concordance_Lear()
     lear_data = read_file('king_lear.txt')
     get_concordance(othello_input, lear_data)
     freq_lear = len(get_concordance(othello_input, lear_data, lines=100, width=79, display=False))
-    lear_message = f'{othello_input} appears {freq_lear} times.'
+    lear_message = f"\"{othello_input}\" appears {freq_lear} times."
     display_freq(lear_message, othello_input, freq_lear)
     # section three: Expand the comparison
     expand_comparison()
