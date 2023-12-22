@@ -4,3 +4,4 @@ pandas == 2.0.2
 constellate-client == 0.0.6
 streamlit-ext == 0.1.9
 openpyxl == 3.0.10
+plotly == 5.9.0
