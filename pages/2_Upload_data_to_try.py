@@ -114,6 +114,7 @@ def plot_comparison_upload_files(uploaded_files, user_input):
     df = df.groupby('File').size().reset_index()
     df = df.rename(columns={0:'Freq'})
     df['keyword'] = user_input
+    df['Freq'] = df['Freq'].replace({1: 0})
     trace = go.Bar(x=df['File'],y=df['Freq'])
     layout = go.Layout(title = f"Frequency of '{user_input}' in uploaded files")
     data = [trace]
@@ -125,6 +126,7 @@ def plot_comparison_constellate(df, user_input):
     # st.dataframe(df)
     df = df.rename(columns={0:'Freq'})
     df['keyword'] = user_input
+    df['Freq'] = df['Freq'].replace({1: 0})
     trace = go.Bar(x=df['id'],y=df['Freq'])
     layout = go.Layout(title = f"Frequency of '{user_input}' in constellate dataset")
     data = [trace]
