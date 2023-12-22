@@ -182,5 +182,5 @@ elif st.session_state['step'] == 2:
     if user_input:
         docs = constellate.dataset_reader(dataset_file)
         df = create_df_from_constellate(docs, user_input)
-        ste.download_button("Download your concordance csv file", df, "concordance.csv")
+        ste.download_button("Download your concordance file", df, "concordance.xlsx")
         plot_comparison_constellate(df, user_input)
