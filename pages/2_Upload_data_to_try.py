@@ -94,7 +94,7 @@ def get_docs(id):
 def get_id_title_fulltext(docs):
     """takes a generator of dictionaries from Constellate dataset
      and return a list of ids, titles, full text"""
-    id_title_fulltext = [(f['id'], f['title'], ''.join(f['fullText'])) for f in docs]
+    id_title_fulltext = [(f['id'], f['title'], ''.join(f['fullText'])) for f in docs if 'fullText' in f.keys()]
     ids = [item[0] for item in id_title_fulltext]
     titles = [item[1] for item in id_title_fulltext]
     texts = [item[2] for item in id_title_fulltext]
