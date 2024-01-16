@@ -17,6 +17,7 @@ import re
 import string 
 import constellate
 import urllib.request 
+nltk.download('punkt')
 
 max_lines = 2**63-1
 
