@@ -54,7 +54,7 @@ def download_image(url):
 
 def raise_humanities_question():
     """give a research question"""
-    st.header("A view of Othello through the prism of concordances")
+    st.subheader("A view of Othello through the prism of concordances")
     st.write("""Here is the synopsis of Othello: Iago is furious about being overlooked for promotion
      and plots to take revenge against his General: Othello, the Moor of Venice. 
      Iago manipulates Othello into believing his wife Desdemona is unfaithful, stirring Othello's 
@@ -65,15 +65,31 @@ compared to other works in Shakespeare's Canon, e.g. King Lear?
 
 We can use concordances to answer this question.""")
 
-def expand_comparison():
-    st.header("Expand the comparison")
+def expand_comparison(othello_input):
+    st.subheader("Expand the comparison")
     st.write(f"""Let's compare the frequency of '{othello_input}' in four works in Shakespeare's Canon:
         Othello, King Lear, Taming of the Shrew, and Romeo and Juliet.""")
 
 def try_another_word():
-    st.header("Try a different word/phrase")
-    st.markdown("""Return to [Find concordances in Othello](#find-concordances-in-othello)
-     and try a different word/phrase.""")
+    st.write("""### Try a different word/phrase""")
+    st.write("Now, enter a keyword of your interest to get its concordances in Othello and King Lear.")
+    st.write("#### Find concordances in Othello and King Lear")
+    othello_data = read_file('othello.txt')
+    othello_input = str(st.text_input(""" """))
+    if othello_input:
+        get_concordance(othello_input, othello_data)
+        freq_othello = len(get_concordance(othello_input, othello_data, lines=max_lines, width=79, display=False))
+        othello_message = f"\"{othello_input}\" appears {freq_othello} times."
+        display_freq(othello_message, othello_input, freq_othello)
+        st.write("#### Find concordances in King Lear") 
+        lear_data = read_file('king_lear.txt')
+        get_concordance(othello_input, lear_data)
+        freq_lear = len(get_concordance(othello_input, lear_data, lines=max_lines, width=79, display=False))
+        lear_message = f"\"{othello_input}\" appears {freq_lear} times."
+        display_freq(lear_message, othello_input, freq_lear)
+        # section three: Expand the comparison
+        expand_comparison(othello_input)
+        plot_comparison(othello_input)
 
 def link_to_notebook(url):
     st.header("Run concordances in Constellate lab")
@@ -131,7 +147,7 @@ def get_concordance(input_string, data_string, lines=25, width=79, display=True)
         return concordance
 
 def display_freq(message, user_input, freq):
-    ### diaplay freq message
+    ### display freq message
     message = user_input + ' appears ' + str(freq) + ' times'
     st.markdown('<p class="big-font">'+message+'</p>', unsafe_allow_html=True)
 
@@ -150,7 +166,108 @@ def plot_comparison(othello_input):
     st.plotly_chart(fig)
 
 set_page_configuration()
+#504087
+tab_css = """
+<style>
+    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] 
+    p {
+    font-size:20px;
+    font-family: "GT America regular", sans serif;
+    }
+    a {
+    background-color:transparent;
 
+    }
+
+    .stTabs [data-baseweb="tab-highlight"] {
+        height: 50px;
+        width: 200px;
+        color: inherit;
+        border: 2px solid #000!important;
+        border-bottom: none;
+        font-weight:700!important;
+        background-color: transparent;
+
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        height: 50px;
+        width: 200px;
+        color: #636369;  
+        font-weight:400;
+        background-color: transparent;
+        margin-left: 3px;
+        margin-right: -15px;
+    }
+
+</style>
+"""
+        # margin-left: 3px;
+        # margin-right: -15px;
+# tab_css = """
+# <style>
+#     .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+#     font-size:20px;
+#     font: GT America;
+#     }
+
+#     .stTabs [data-baseweb="tab"] {
+#         height: 50px;
+#         width: 200px;
+#         border: 1px solid #636369;
+#         font-weight:400;
+#         padding: 0 16px;
+#         outline: none;
+#         color: #636369;  
+#         background-color: transparent;
+#         margin-left: 3px;
+#         margin-right: -15px;
+#         align-items: center;
+#         text-align: center;
+#     }
+
+#     .stTabs [data-baseweb="tab-highlight"] {
+#         height: 50px;
+#         width: 200px;
+#         color: #000000;
+#         border: 3px solid black; 
+#         background-color: transparent;
+#         font-weight:700;
+#         padding: 0 16px;
+#         outline: none;
+#         margin-left: 3px;
+#         margin-right: -15px;
+#         align-items: center;
+#         text-align: center;
+#     }
+
+# </style>
+# # """
+        # border-bottom: 3px solid red;
+
+
+#border-bottom: 1px solid red;
+      # border-width: 2px;
+      #   border-color: #000000;
+      #   border-bottom: 2px solid black;
+
+
+      #   border-width: 2px;
+      #   border-color: #636369;
+      #   border-bottom: 1px solid #636369;
+
+        #border-width: 10px
+                #font-weight:700;
+st.markdown(tab_css, unsafe_allow_html=True)
+
+   # .stTabs [aria-selected="true"] {
+   #      height: 50px;
+   #      width: 25ex;
+   #      outline: 2px solid black;
+   #      border-color: #000000;
+   #      background-color: transparent
+
+   #  }
 ### Section one: Intro
 add_title()
 st.write("## What is a concordance?")
@@ -179,27 +296,25 @@ st.write('## Select an example to explore')
 tab1, tab2, tab3 = st.tabs(["Humanities", "Social sciences", "Natural sciences"])
 with tab1:
     raise_humanities_question()
-    st.header("Find concordances in Othello")
+    st.subheader("Find concordances of 'jealous' in Othello")
     othello_data = read_file('othello.txt')
-    othello_input = str(st.text_input(""" """, """jealous"""))
-    if othello_input:
-        get_concordance(othello_input, othello_data)
-        freq_othello = len(get_concordance(othello_input, othello_data, lines=max_lines, width=79, display=False))
-        othello_message = f"\"{othello_input}\" appears {freq_othello} times."
-        display_freq(othello_message, othello_input, freq_othello)
-        st.header("Find concordances in King Lear") 
-        lear_data = read_file('king_lear.txt')
-        get_concordance(othello_input, lear_data)
-        freq_lear = len(get_concordance(othello_input, lear_data, lines=max_lines, width=79, display=False))
-        lear_message = f"\"{othello_input}\" appears {freq_lear} times."
-        display_freq(lear_message, othello_input, freq_lear)
-        # section three: Expand the comparison
-        expand_comparison()
-        plot_comparison(othello_input)
-        # section four: Try another word
-        try_another_word()
+    get_concordance("jealous", othello_data)
+    freq_othello = len(get_concordance("jealous", othello_data, lines=max_lines, width=79, display=False))
+    othello_message = f""""jealous" appears {freq_othello} times."""
+    display_freq(othello_message, "jealous", freq_othello)
+    st.subheader("Find concordances of 'jealous' in King Lear") 
+    lear_data = read_file('king_lear.txt')
+    get_concordance("jealous", lear_data)
+    freq_lear = len(get_concordance("jealous", lear_data, lines=max_lines, width=79, display=False))
+    lear_message = f""""jealous" appears {freq_lear} times."""
+    display_freq(lear_message, "jealous", freq_lear)
+    # section three: Expand the comparison
+    expand_comparison('jealous')
+    plot_comparison("jealous")
+    # section four: Try another word
+    try_another_word()
 with tab2:
-    st.header("Blah blah blah")
+    st.subheader("Blah blah blah")
     st.write("""Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat pellentesque adipiscing commodo elit at. Sed elementum tempus egestas sed sed risus. Sem nulla pharetra diam sit amet. In pellentesque massa placerat duis. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus. Nam aliquam sem et tortor. Cras fermentum odio eu feugiat. Ultrices mi tempus imperdiet nulla malesuada. Posuere urna nec tincidunt praesent semper feugiat nibh sed pulvinar. Cum sociis natoque penatibus et. Mi sit amet mauris commodo quis imperdiet. Sed turpis tincidunt id aliquet risus feugiat in ante metus. A erat nam at lectus urna. In nulla posuere sollicitudin aliquam ultrices.
 
 Pellentesque habitant morbi tristique senectus et. Turpis egestas integer eget aliquet nibh praesent tristique magna. Rhoncus dolor purus non enim praesent elementum. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Ultrices dui sapien eget mi proin sed libero enim. Accumsan lacus vel facilisis volutpat est velit egestas dui id. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed. Quam viverra orci sagittis eu volutpat odio facilisis. Et sollicitudin ac orci phasellus. Lectus quam id leo in vitae turpis massa sed. Potenti nullam ac tortor vitae purus faucibus ornare. At lectus urna duis convallis convallis tellus id. Elementum nibh tellus molestie nunc non blandit massa enim nec. At in tellus integer feugiat scelerisque varius morbi enim.
@@ -210,7 +325,7 @@ Lacinia at quis risus sed. Velit aliquet sagittis id consectetur purus ut faucib
 
 Sed velit dignissim sodales ut eu sem. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Dolor morbi non arcu risus quis varius quam quisque. Non odio euismod lacinia at quis risus sed. Ultrices dui sapien eget mi proin. Semper viverra nam libero justo laoreet sit amet cursus. Urna neque viverra justo nec ultrices dui sapien. Purus sit amet luctus venenatis lectus magna fringilla urna porttitor. Enim neque volutpat ac tincidunt vitae semper. Interdum varius sit amet mattis. Id volutpat lacus laoreet non curabitur. Eu tincidunt tortor aliquam nulla facilisi cras. Lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt. Urna id volutpat lacus laoreet non curabitur.""")
 with tab3:
-    st.header("Blah blah blah")
+    st.subheader("Blah blah blah")
     st.write("""Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat pellentesque adipiscing commodo elit at. Sed elementum tempus egestas sed sed risus. Sem nulla pharetra diam sit amet. In pellentesque massa placerat duis. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus. Nam aliquam sem et tortor. Cras fermentum odio eu feugiat. Ultrices mi tempus imperdiet nulla malesuada. Posuere urna nec tincidunt praesent semper feugiat nibh sed pulvinar. Cum sociis natoque penatibus et. Mi sit amet mauris commodo quis imperdiet. Sed turpis tincidunt id aliquet risus feugiat in ante metus. A erat nam at lectus urna. In nulla posuere sollicitudin aliquam ultrices.
 
 Pellentesque habitant morbi tristique senectus et. Turpis egestas integer eget aliquet nibh praesent tristique magna. Rhoncus dolor purus non enim praesent elementum. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Ultrices dui sapien eget mi proin sed libero enim. Accumsan lacus vel facilisis volutpat est velit egestas dui id. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed. Quam viverra orci sagittis eu volutpat odio facilisis. Et sollicitudin ac orci phasellus. Lectus quam id leo in vitae turpis massa sed. Potenti nullam ac tortor vitae purus faucibus ornare. At lectus urna duis convallis convallis tellus id. Elementum nibh tellus molestie nunc non blandit massa enim nec. At in tellus integer feugiat scelerisque varius morbi enim.
