@@ -24,7 +24,6 @@ max_lines = 2**63-1
 def set_page_configuration():
     """set page configuration"""
     st.set_page_config(page_title="Concordance",layout="centered")
-    # st.sidebar.header("Intro to concordance")
 
 def add_title():
     """add app title"""
@@ -72,8 +71,7 @@ def expand_comparison(othello_input):
 
 def try_another_word():
     st.write("""### Try a different word/phrase""")
-    st.write("Now, enter a keyword of your interest to get its concordances in Othello and King Lear.")
-    st.write("#### Find concordances in Othello and King Lear")
+    st.write("Enter a keyword of your interest to get its concordances in Othello and King Lear")
     othello_data = read_file('othello.txt')
     othello_input = str(st.text_input(""" """))
     if othello_input:
@@ -93,29 +91,9 @@ def try_another_word():
 
 def link_to_notebook(url):
     st.header("Run concordances in Constellate lab")
-    st.write("Try our concordance lesson with more flexibility for actual research!")
-    with st.expander('Preview the concordance notebook lesson'):
-        st.markdown("""# Concordance and Collocation
-
-**Description:** This notebook describes how to create a concordance and collocation starting from text files and from a Constellate dataset file.
-
-**Use Case:** For Learners (Detailed explanation, not ideal for researchers)
-
-**Difficulty:** Intermediate
-
-**Completion Time:** 45 minutes
-
-**Knowledge Required:** 
-* Python Basics Series ([Start Python Basics I](./python-basics-1.ipynb))
-
-**Knowledge Recommended:** None
-
-**Data Format:** Text, Constellate JSON File
-
-**Libraries Used:** NLTK
-
-**Research Pipeline:** None""")
-    st.link_button("Run the concordance notebook in lab", url)
+    st.write("Interested in learning more about concordance to apply to your research? Try out code tutorial on concordance.")
+    # button_text = st.markdown("View code tutorial $->$")
+    st.link_button("View code tutorial $\longrightarrow$", url)
 
 def read_file(fname): 
     """read in the data of a file"""
@@ -166,110 +144,8 @@ def plot_comparison(othello_input):
     st.plotly_chart(fig)
 
 set_page_configuration()
-#504087
-tab_css = """
-<style>
-    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] 
-    p {
-    font-size:20px;
-    font-family: "GT America regular", sans serif;
-    }
-    a {
-    background-color:transparent;
 
-    }
-
-    .stTabs [data-baseweb="tab-highlight"] {
-        height: 50px;
-        width: 200px;
-        color: inherit;
-        border: 2px solid #000!important;
-        border-bottom: none;
-        font-weight:700!important;
-        background-color: transparent;
-
-    }
-
-    .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        width: 200px;
-        color: #636369;  
-        font-weight:400;
-        background-color: transparent;
-        margin-left: 3px;
-        margin-right: -15px;
-    }
-
-</style>
-"""
-        # margin-left: 3px;
-        # margin-right: -15px;
-# tab_css = """
-# <style>
-#     .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-#     font-size:20px;
-#     font: GT America;
-#     }
-
-#     .stTabs [data-baseweb="tab"] {
-#         height: 50px;
-#         width: 200px;
-#         border: 1px solid #636369;
-#         font-weight:400;
-#         padding: 0 16px;
-#         outline: none;
-#         color: #636369;  
-#         background-color: transparent;
-#         margin-left: 3px;
-#         margin-right: -15px;
-#         align-items: center;
-#         text-align: center;
-#     }
-
-#     .stTabs [data-baseweb="tab-highlight"] {
-#         height: 50px;
-#         width: 200px;
-#         color: #000000;
-#         border: 3px solid black; 
-#         background-color: transparent;
-#         font-weight:700;
-#         padding: 0 16px;
-#         outline: none;
-#         margin-left: 3px;
-#         margin-right: -15px;
-#         align-items: center;
-#         text-align: center;
-#     }
-
-# </style>
-# # """
-        # border-bottom: 3px solid red;
-
-
-#border-bottom: 1px solid red;
-      # border-width: 2px;
-      #   border-color: #000000;
-      #   border-bottom: 2px solid black;
-
-
-      #   border-width: 2px;
-      #   border-color: #636369;
-      #   border-bottom: 1px solid #636369;
-
-        #border-width: 10px
-                #font-weight:700;
-st.markdown(tab_css, unsafe_allow_html=True)
-
-   # .stTabs [aria-selected="true"] {
-   #      height: 50px;
-   #      width: 25ex;
-   #      outline: 2px solid black;
-   #      border-color: #000000;
-   #      background-color: transparent
-
-   #  }
 ### Section one: Intro
-add_title()
 st.write("## What is a concordance?")
 st.markdown("""The concordance has a long history in humanities study.
    A concordance is a list of all the contexts in which a certain word/phrase occurs in a text (Lindquist and Levin 2018, 5). 
@@ -335,58 +211,7 @@ Iaculis at erat pellentesque adipiscing. Diam ut venenatis tellus in metus vulpu
 Lacinia at quis risus sed. Velit aliquet sagittis id consectetur purus ut faucibus pulvinar. Adipiscing elit pellentesque habitant morbi. Ut diam quam nulla porttitor. Diam maecenas ultricies mi eget mauris. Sit amet tellus cras adipiscing enim eu turpis egestas pretium. Viverra nam libero justo laoreet sit amet cursus sit amet. Quis hendrerit dolor magna eget est. Nisl purus in mollis nunc sed id. Eget velit aliquet sagittis id consectetur purus ut faucibus. A arcu cursus vitae congue mauris rhoncus aenean vel elit. Interdum varius sit amet mattis vulputate. Tincidunt ornare massa eget egestas purus viverra. Ut tortor pretium viverra suspendisse potenti. Ac turpis egestas integer eget aliquet nibh praesent. Ultrices in iaculis nunc sed augue.
 
 Sed velit dignissim sodales ut eu sem. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Dolor morbi non arcu risus quis varius quam quisque. Non odio euismod lacinia at quis risus sed. Ultrices dui sapien eget mi proin. Semper viverra nam libero justo laoreet sit amet cursus. Urna neque viverra justo nec ultrices dui sapien. Purus sit amet luctus venenatis lectus magna fringilla urna porttitor. Enim neque volutpat ac tincidunt vitae semper. Interdum varius sit amet mattis. Id volutpat lacus laoreet non curabitur. Eu tincidunt tortor aliquam nulla facilisi cras. Lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt. Urna id volutpat lacus laoreet non curabitur.""")
-# # Use the value of a session state variable 'step' to track the sequencing relation between widgets
-# if st.session_state.get('step') is None:
-#     st.session_state['step'] = 0
 
-# datapick_cols = st.columns(3)
-# with datapick_cols[0]:
-#     with st.container():
-        
-#         st.info('Humanities')
-#         st.write('A view of Othello through the prism of concordance')
-#         humanities = st.button('Select', key='humanities')
-#         if humanities:
-#            st.session_state['step'] = 1
-# with datapick_cols[1]:
-#     with st.container():
-#         st.info('Social sciences')
-#         social = st.button('Select', key='social')
-#         if social:
-#             st.session_state['step'] = 2
-# with datapick_cols[2]:
-#     with st.container():
-#         st.info('Natural sciences')
-#         social = st.button('Select', key='natural')
-#         if social:
-#             st.session_state['step'] = 3
-
-# if st.session_state['step'] == 1:
-#     # raise research question
-#     raise_humanities_question()
-    # st.header("Find concordances in Othello")
-    # othello_data = read_file('othello.txt')
-    # othello_input = str(st.text_input(""" """, """jealous"""))
-    # if othello_input:
-    #     get_concordance(othello_input, othello_data)
-    #     freq_othello = len(get_concordance(othello_input, othello_data, lines=max_lines, width=79, display=False))
-    #     othello_message = f"\"{othello_input}\" appears {freq_othello} times."
-    #     display_freq(othello_message, othello_input, freq_othello)
-    #     st.header("Find concordances in King Lear") 
-    #     lear_data = read_file('king_lear.txt')
-    #     get_concordance(othello_input, lear_data)
-    #     freq_lear = len(get_concordance(othello_input, lear_data, lines=max_lines, width=79, display=False))
-    #     lear_message = f"\"{othello_input}\" appears {freq_lear} times."
-    #     display_freq(lear_message, othello_input, freq_lear)
-    #     # section three: Expand the comparison
-    #     expand_comparison()
-    #     plot_comparison(othello_input)
-    #     # section four: Try another word
-    #     try_another_word()
-# elif st.session_state['step'] == 2:  
-#     pass
-# elif st.session_state['step'] == 3:
-#     pass
 
 # # section five: Go to the associated notebook
 link_to_notebook("""https://constellate.org/lab?repo=https%3A%2F%2Fgithub.com%2Fithaka%2Fconstellate-notebooks&filepath=concordance.ipynb""")
