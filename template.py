@@ -29,27 +29,9 @@ def add_title():
     """add app title"""
     st.markdown("# Introduction to Concordance")
 
-# define a function to load the video example
-def download_video_to_play(url): 
-    """preview first 20 lines of example file and return file content as a string"""
-    try: 
-        response = urllib.request.urlopen(url) 
-        video_bytes = response.read()
-        st.video(video_bytes)
-    except urllib.request.URLError:
-        warning_message = '<p style="font-family:roboto; color:Green;font-size:36px;">No video displayed? Please check your internet connection.</p>'
-        st.markdown(warning_message, unsafe_allow_html=True)
-
 # define a function to load the image of concordance line
-def download_image(url): 
-    """preview first 20 lines of example file and return file content as a string"""
-    try: 
-        response = urllib.request.urlopen(url) 
-        image = response.read()
-        st.image(image, caption="Figure 1:  Concordance lines of 'effect' in the BNC-Baby corpus. (Wynne, 2008)")
-    except urllib.request.URLError:
-        warning_message = '<p style="font-family:roboto; color:Green;font-size:36px;">No image displayed? Please check your internet connection.</p>'
-        st.markdown(warning_message, unsafe_allow_html=True)
+def display_image(image, caption): 
+    st.image(image, caption=caption)
 
 def raise_humanities_question():
     """give a research question"""
@@ -144,20 +126,17 @@ def plot_comparison(othello_input):
     st.plotly_chart(fig)
 
 set_page_configuration()
-
 ### Section one: Intro
 st.write("## What is a concordance?")
 st.markdown("""The concordance has a long history in humanities study.
    A concordance is a list of all the contexts in which a certain word/phrase occurs in a text (Lindquist and Levin 2018, 5). 
-   For example, if you go to [OpenSourceShakespeare](https://www.opensourceshakespeare.org) and enter a keyword to search,
-    you will find concordances compiled for people to study how the word is used in Shakespeare's works.""")
-st.write("Play the following video to get a sense of concordances.")
-download_video_to_play("https://ithaka-labs.s3.amazonaws.com/static-files/images/tdm/OpenSourceShakespeareForConcordanceApp.mp4")
-st.caption('<div style="text-align: center">Search for concordances of \'honesty\' on OpenSourceShakespeare</div>', unsafe_allow_html=True)
+   For example, if you go to the Constellate builder and [search within the documents](https://constellate.org/builder?unigrams=patients,%20students#:~:text=the%20%22Keyphrases%22%20menu.-,Document%20categories%20over%20time,-Learn%20more) of a dataset that you are building,
+    you will find concordances compiled for you to study how the keyword you have entered is used in the documents.""")
+display_image("data/monticello.png", 'Figure 1: Search for concordances of \'monticello\' in the journal Papers of Thomas Jefferson')
 
 st.markdown("""<br>In natural language processing, concordances are often presented in the form of keyword-in-context (KWIC) 
    with one line of context and the keyword centered in the line.""",unsafe_allow_html=True)
-download_image("https://ithaka-labs.s3.amazonaws.com/static-files/images/tdm/tdmdocs/ConcordanceImageForConcordanceApp.jpg")
+display_image("data/effect.png", 'Figure 2: Concordance lines of \'effect\' in the BNC-Baby corpus. (Wynne, 2008)')
 
 st.write("## Why are concordances useful?")
 st.markdown("""Concordance data are useful in many ways. First of all, getting information using concordances is much faster than 
