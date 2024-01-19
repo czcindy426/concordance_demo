@@ -25,10 +25,6 @@ def set_page_configuration():
     """set page configuration"""
     st.set_page_config(page_title="Concordance",layout="centered")
 
-def add_title():
-    """add app title"""
-    st.markdown("# Introduction to Concordance")
-
 # define a function to load the image of concordance line
 def display_image(image, caption): 
     st.image(image, caption=caption)
@@ -152,6 +148,7 @@ tab1, tab2, tab3 = st.tabs(["Humanities", "Social sciences", "Natural sciences"]
 with tab1:
     raise_humanities_question()
     st.subheader("Find concordances of 'jealous' in Othello")
+    st.text_input(""" """, "jealous")
     othello_data = read_file('othello.txt')
     get_concordance("jealous", othello_data)
     freq_othello = len(get_concordance("jealous", othello_data, lines=max_lines, width=79, display=False))
