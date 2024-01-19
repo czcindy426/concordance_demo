@@ -6,18 +6,23 @@
 Here's our first attempt at using streamlit to make a pre-code tutorial on concordance
 """
 import streamlit as st
-from io import StringIO
 import nltk
-import numpy as np
 import pandas as pd
-import streamlit_ext as ste
 import plotly.express as px
 import plotly.graph_objs as go
-import re
-import string 
 nltk.download('punkt')
 
 max_lines = 2**63-1
+def read_file(fname): 
+    """read in the data of a file"""
+    with open("./data/"+fname, 'r') as f:
+        content = f.read()
+    return content
+
+othello_data = read_file('othello.txt')
+lear_data = read_file('king_lear.txt')
+tame_data = read_file('taming_of_the_shrew.txt')
+romeo_data = read_file('romeo_and_juliet.txt')
 
 def set_page_configuration():
     """set page configuration"""
@@ -55,7 +60,6 @@ def try_another_word():
         freq_othello = len(get_concordance(othello_input, othello_data, lines=max_lines, width=79, display=False))
         display_freq(othello_input, freq_othello, 'Othello')
         get_concordance(othello_input, othello_data)
-        lear_data = read_file('king_lear.txt')
         freq_lear = len(get_concordance(othello_input, lear_data, lines=max_lines, width=79, display=False))
         display_freq(othello_input, freq_lear, 'King Lear')
         get_concordance(othello_input, lear_data)
@@ -67,11 +71,6 @@ def link_to_notebook(url):
     st.write("Interested in learning more about concordance to apply to your research? Try out code tutorial on concordance.")
     st.link_button("View code tutorial $\longrightarrow$", url)
 
-def read_file(fname): 
-    """read in the data of a file"""
-    with open("./data/"+fname, 'r') as f:
-        content = f.read()
-    return content
 
 def tokenize(data_string):
     """tokenize the file content string and return a nltk Text object"""
@@ -104,15 +103,15 @@ def display_num_lines_message():
     st.markdown("""At most 25 concordances lines are displayed. If you would like to learn how to save your concordance data
      to a text file, [run our concordance lesson in the Constellate lab](#run-concordances-in-constellate-lab)!""")
 
-def plot_comparison(othello_input):
+def plot_comparison(othello_input='jealous'):
     ### bar chart showing freq of 'jealous' in Othello, King Lear, Taming of the Shrew, Romeo and Juliet
-    tame_data = read_file('taming_of_the_shrew.txt')
-    freq_tame = len(get_concordance(othello_input, tame_data, lines=100, width=79, display=False))
-    romeo_data = read_file('romeo_and_juliet.txt')
-    freq_romeo = len(get_concordance(othello_input, romeo_data, lines=100, width=79, display=False))
+    freq_othello = len(get_concordance(othello_input, othello_data, lines=max_lines, width=79, display=False))
+    freq_lear = len(get_concordance(othello_input, lear_data, lines=max_lines, width=79, display=False))
+    freq_tame = len(get_concordance(othello_input, tame_data, lines=max_lines, width=79, display=False))
+    freq_romeo = len(get_concordance(othello_input, romeo_data, lines=max_lines, width=79, display=False))
     df = pd.DataFrame({'Canon': ['Othello', 'King Lear', 'Taming of the Shrew', 'Romeo and Juliet'],
-        'Freq_of_jealous': [freq_othello, freq_lear, freq_tame, freq_romeo]})
-    trace = go.Bar(x=df['Canon'],y=df['Freq_of_jealous'])
+        'Freq': [freq_othello, freq_lear, freq_tame, freq_romeo]})
+    trace = go.Bar(x=df['Canon'],y=df['Freq'])
     layout = go.Layout(title = f"Frequency of '{othello_input}'' in Shakespeare's 4 works")
     data = [trace]
     fig = go.Figure(data=data,layout=layout)
@@ -185,10 +184,10 @@ Lacinia at quis risus sed. Velit aliquet sagittis id consectetur purus ut faucib
 Sed velit dignissim sodales ut eu sem. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Dolor morbi non arcu risus quis varius quam quisque. Non odio euismod lacinia at quis risus sed. Ultrices dui sapien eget mi proin. Semper viverra nam libero justo laoreet sit amet cursus. Urna neque viverra justo nec ultrices dui sapien. Purus sit amet luctus venenatis lectus magna fringilla urna porttitor. Enim neque volutpat ac tincidunt vitae semper. Interdum varius sit amet mattis. Id volutpat lacus laoreet non curabitur. Eu tincidunt tortor aliquam nulla facilisi cras. Lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt. Urna id volutpat lacus laoreet non curabitur.""")
 
 
-# # section five: Go to the associated notebook
+## section three: Go to the associated notebook
 st.header("Run concordances in Constellate lab")
 link_to_notebook("""https://constellate.org/lab?repo=https%3A%2F%2Fgithub.com%2Fithaka%2Fconstellate-notebooks&filepath=concordance.ipynb""")
-### Section six: References
+### Section four: References
 st.write("## References")
 st.markdown("""Lindquist, H., & Levin, M. (2018). *Corpus Linguistics and the Description of English*. Edinburgh: Edinburgh University Press.
 
