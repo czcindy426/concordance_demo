@@ -3,7 +3,7 @@
 
 """
 # My first app, home page 
-Here's our first attempt at using streamlit to make a no-code tutorial for concordance
+Here's our first attempt at using streamlit to make a pre-code tutorial on concordance
 """
 import streamlit as st
 from io import StringIO
@@ -23,9 +23,9 @@ max_lines = 2**63-1
 
 def set_page_configuration():
     """set page configuration"""
-    st.set_page_config(page_title="Concordance",layout="centered")
+    st.set_page_config(page_title="Concordance",layout="wide")
 
-# define a function to load the image of concordance line
+# define a function to load images
 def display_image(image, caption): 
     st.image(image, caption=caption)
 
@@ -122,6 +122,7 @@ def plot_comparison(othello_input):
     st.plotly_chart(fig)
 
 set_page_configuration()
+
 ### Section one: Intro
 st.write("## What is a concordance?")
 st.markdown("""The concordance has a long history in humanities study.
