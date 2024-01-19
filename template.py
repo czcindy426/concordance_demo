@@ -15,8 +15,6 @@ import plotly.express as px
 import plotly.graph_objs as go
 import re
 import string 
-import constellate
-import urllib.request 
 nltk.download('punkt')
 
 max_lines = 2**63-1
@@ -26,7 +24,7 @@ def set_page_configuration():
     st.set_page_config(page_title="Concordance",layout="wide")
 
 # define a function to load images
-def display_image(image, caption): 
+def display_image(image, caption=None): 
     st.image(image, caption=caption)
 
 def raise_humanities_question():
@@ -52,25 +50,21 @@ def try_another_word():
     st.write("Enter a keyword of your interest to get its concordances in Othello and King Lear")
     othello_data = read_file('othello.txt')
     othello_input = str(st.text_input(""" """))
+    display_num_lines_message()
     if othello_input:
-        get_concordance(othello_input, othello_data)
         freq_othello = len(get_concordance(othello_input, othello_data, lines=max_lines, width=79, display=False))
-        othello_message = f"\"{othello_input}\" appears {freq_othello} times."
-        display_freq(othello_message, othello_input, freq_othello)
-        st.write("#### Find concordances in King Lear") 
+        display_freq(othello_input, freq_othello, 'Othello')
+        get_concordance(othello_input, othello_data)
         lear_data = read_file('king_lear.txt')
-        get_concordance(othello_input, lear_data)
         freq_lear = len(get_concordance(othello_input, lear_data, lines=max_lines, width=79, display=False))
-        lear_message = f"\"{othello_input}\" appears {freq_lear} times."
-        display_freq(lear_message, othello_input, freq_lear)
+        display_freq(othello_input, freq_lear, 'King Lear')
+        get_concordance(othello_input, lear_data)
         # section three: Expand the comparison
         expand_comparison(othello_input)
         plot_comparison(othello_input)
 
 def link_to_notebook(url):
-    st.header("Run concordances in Constellate lab")
     st.write("Interested in learning more about concordance to apply to your research? Try out code tutorial on concordance.")
-    # button_text = st.markdown("View code tutorial $->$")
     st.link_button("View code tutorial $\longrightarrow$", url)
 
 def read_file(fname): 
@@ -102,10 +96,13 @@ def get_concordance(input_string, data_string, lines=25, width=79, display=True)
     else:
         return concordance
 
-def display_freq(message, user_input, freq):
+def display_freq(word, freq, text):
     ### display freq message
-    message = user_input + ' appears ' + str(freq) + ' times'
-    st.markdown('<p class="big-font">'+message+'</p>', unsafe_allow_html=True)
+    st.write('#### '+ f"'{word}'" + ' appears ' + str(freq) + ' times in ' + text)
+
+def display_num_lines_message():
+    st.markdown("""At most 25 concordances lines are displayed. If you would like to learn how to save your concordance data
+     to a text file, [run our concordance lesson in the Constellate lab](#run-concordances-in-constellate-lab)!""")
 
 def plot_comparison(othello_input):
     ### bar chart showing freq of 'jealous' in Othello, King Lear, Taming of the Shrew, Romeo and Juliet
@@ -148,26 +145,23 @@ st.write('## Select an example to explore')
 tab1, tab2, tab3 = st.tabs(["Humanities", "Social sciences", "Natural sciences"])
 with tab1:
     raise_humanities_question()
-    st.subheader("Find concordances of 'jealous' in Othello")
-    st.text_input(""" """, "jealous")
+    st.subheader("Find concordances of 'jealous' in Othello and King Lear")
+    display_image('data/jealous_input.png')    
     othello_data = read_file('othello.txt')
-    get_concordance("jealous", othello_data)
     freq_othello = len(get_concordance("jealous", othello_data, lines=max_lines, width=79, display=False))
-    othello_message = f""""jealous" appears {freq_othello} times."""
-    display_freq(othello_message, "jealous", freq_othello)
-    st.subheader("Find concordances of 'jealous' in King Lear") 
+    display_freq("jealous", freq_othello, 'Othello')
+    get_concordance("jealous", othello_data)
     lear_data = read_file('king_lear.txt')
-    get_concordance("jealous", lear_data)
     freq_lear = len(get_concordance("jealous", lear_data, lines=max_lines, width=79, display=False))
-    lear_message = f""""jealous" appears {freq_lear} times."""
-    display_freq(lear_message, "jealous", freq_lear)
+    display_freq("jealous", freq_lear, 'King Lear')
+    get_concordance("jealous", lear_data)
     # section three: Expand the comparison
     expand_comparison('jealous')
     plot_comparison("jealous")
     # section four: Try another word
     try_another_word()
 with tab2:
-    st.subheader("Blah blah blah")
+    st.subheader("Lorem ipsum dolor")
     st.write("""Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat pellentesque adipiscing commodo elit at. Sed elementum tempus egestas sed sed risus. Sem nulla pharetra diam sit amet. In pellentesque massa placerat duis. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus. Nam aliquam sem et tortor. Cras fermentum odio eu feugiat. Ultrices mi tempus imperdiet nulla malesuada. Posuere urna nec tincidunt praesent semper feugiat nibh sed pulvinar. Cum sociis natoque penatibus et. Mi sit amet mauris commodo quis imperdiet. Sed turpis tincidunt id aliquet risus feugiat in ante metus. A erat nam at lectus urna. In nulla posuere sollicitudin aliquam ultrices.
 
 Pellentesque habitant morbi tristique senectus et. Turpis egestas integer eget aliquet nibh praesent tristique magna. Rhoncus dolor purus non enim praesent elementum. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Ultrices dui sapien eget mi proin sed libero enim. Accumsan lacus vel facilisis volutpat est velit egestas dui id. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed. Quam viverra orci sagittis eu volutpat odio facilisis. Et sollicitudin ac orci phasellus. Lectus quam id leo in vitae turpis massa sed. Potenti nullam ac tortor vitae purus faucibus ornare. At lectus urna duis convallis convallis tellus id. Elementum nibh tellus molestie nunc non blandit massa enim nec. At in tellus integer feugiat scelerisque varius morbi enim.
@@ -178,7 +172,7 @@ Lacinia at quis risus sed. Velit aliquet sagittis id consectetur purus ut faucib
 
 Sed velit dignissim sodales ut eu sem. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Dolor morbi non arcu risus quis varius quam quisque. Non odio euismod lacinia at quis risus sed. Ultrices dui sapien eget mi proin. Semper viverra nam libero justo laoreet sit amet cursus. Urna neque viverra justo nec ultrices dui sapien. Purus sit amet luctus venenatis lectus magna fringilla urna porttitor. Enim neque volutpat ac tincidunt vitae semper. Interdum varius sit amet mattis. Id volutpat lacus laoreet non curabitur. Eu tincidunt tortor aliquam nulla facilisi cras. Lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt. Urna id volutpat lacus laoreet non curabitur.""")
 with tab3:
-    st.subheader("Blah blah blah")
+    st.subheader("Lorem ipsum dolor")
     st.write("""Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat pellentesque adipiscing commodo elit at. Sed elementum tempus egestas sed sed risus. Sem nulla pharetra diam sit amet. In pellentesque massa placerat duis. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus. Nam aliquam sem et tortor. Cras fermentum odio eu feugiat. Ultrices mi tempus imperdiet nulla malesuada. Posuere urna nec tincidunt praesent semper feugiat nibh sed pulvinar. Cum sociis natoque penatibus et. Mi sit amet mauris commodo quis imperdiet. Sed turpis tincidunt id aliquet risus feugiat in ante metus. A erat nam at lectus urna. In nulla posuere sollicitudin aliquam ultrices.
 
 Pellentesque habitant morbi tristique senectus et. Turpis egestas integer eget aliquet nibh praesent tristique magna. Rhoncus dolor purus non enim praesent elementum. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Ultrices dui sapien eget mi proin sed libero enim. Accumsan lacus vel facilisis volutpat est velit egestas dui id. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed. Quam viverra orci sagittis eu volutpat odio facilisis. Et sollicitudin ac orci phasellus. Lectus quam id leo in vitae turpis massa sed. Potenti nullam ac tortor vitae purus faucibus ornare. At lectus urna duis convallis convallis tellus id. Elementum nibh tellus molestie nunc non blandit massa enim nec. At in tellus integer feugiat scelerisque varius morbi enim.
@@ -191,6 +185,7 @@ Sed velit dignissim sodales ut eu sem. Scelerisque mauris pellentesque pulvinar 
 
 
 # # section five: Go to the associated notebook
+st.header("Run concordances in Constellate lab")
 link_to_notebook("""https://constellate.org/lab?repo=https%3A%2F%2Fgithub.com%2Fithaka%2Fconstellate-notebooks&filepath=concordance.ipynb""")
 ### Section six: References
 st.write("## References")
