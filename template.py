@@ -147,6 +147,7 @@ with tab1:
     raise_humanities_question()
     st.subheader("Find concordances of 'jealous' in Othello and King Lear")
     display_image('data/jealous_input.png')    
+    display_num_lines_message()
     othello_data = read_file('othello.txt')
     freq_othello = len(get_concordance("jealous", othello_data, lines=max_lines, width=79, display=False))
     display_freq("jealous", freq_othello, 'Othello')
