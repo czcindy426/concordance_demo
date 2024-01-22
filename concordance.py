@@ -144,8 +144,7 @@ st.markdown("""
 st.markdown("<p class='main-heading'> What is a concordance?</p>", unsafe_allow_html=True)
 st.markdown("""<p class='bodytext'>The concordance has a long history in humanities study.
    A concordance is a list of all the contexts in which a certain word/phrase occurs in a text (Lindquist and Levin 2018, 5). 
-   For example, if you go to the Constellate builder and [search within the documents](https://constellate.org/builder?unigrams=patients,%20students#:~:text=the%20%22Keyphrases%22%20menu.-,Document%20categories%20over%20time,-Learn%20more) of a dataset that you are building,
-    you will find concordances compiled for you to study how the keyword you have entered is used in the documents.</p>""", unsafe_allow_html=True)
+   For example, if you go to the Constellate builder and search within the documents of a dataset that you are building, you will find concordances compiled for you to study how the keyword you have entered is used in the documents.</p>""", unsafe_allow_html=True)
 display_image("data/monticello.png", 'Figure 1: Search for concordances of \'monticello\' in the journal Papers of Thomas Jefferson')
 
 st.markdown("""<p class='bodytext'>In natural language processing, concordances are often presented in the form of keyword-in-context (KWIC) 
