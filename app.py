@@ -12,6 +12,7 @@ import streamlit as st
 import nltk
 import pandas as pd
 import plotly.graph_objs as go
+nltk.download('punkt') 
 
 # Define constants
 MAX_LINES = 2**63 - 1
