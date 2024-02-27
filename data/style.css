@@ -1,0 +1,35 @@
+h1 {
+  font-size: 32px;
+  font-weight: medium;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "GT America", sans-serif;
+}
+
+h3 {
+font-size: 24 px;
+font-weight: bold;
+font-family: "IBM Plex Sans", sans-serif;
+}
+
+h4 {
+  font-size: 20 px;
+  font-weight: medium;
+  font-family: "GT America", sans-serif;
+  }
+
+h5 {
+  font-size: 16 px;
+  font-weight: medium;
+  font-family: "GT America", sans-serif;
+}
+
+p {
+  font-size: 16px;
+  font-weight: regular;
+  font-family: "GT America", sans-serif;
+}

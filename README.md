@@ -1,1 +1,1 @@
-# concordance_demo
+# Concordance app
